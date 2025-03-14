@@ -1,4 +1,4 @@
-## Lab 1.1: Directorio telefónico con clases, listas y ciccionarios
+## Lab 1.1: Directorio telefónico con clases, listas y diccionarios
 
 ## Objetivo:
 
