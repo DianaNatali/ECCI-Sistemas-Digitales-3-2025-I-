@@ -42,14 +42,14 @@ El curso se centra en la integración de dos componentes clave: un microcontrola
     <td>3-5</td>
     <td>Listas & Diccionarios  </td>
     <td>lab01</td>
-    <td><a href="">Link </a></td>
+    <td><a href="https://classroom.github.com/a/3VsK5rAn">Link </a></td>
     <td>10-14 Mar/2025</td>
   </tr>
   <tr>
     <td>6-7</td>
     <td> Listas & Diccionarios: Empleando objetos y clases</td>
     <td><a href="/laboratorios/1_lab01_1/README.md">lab01.1</a></td>
-    <td><a href="https://classroom.github.com/a/3VsK5rAn">Link </a></td>
+    <td><a href="">Link </a></td>
     <td> 23-27 Mar/2025</td>
   </tr>
   <tr>
