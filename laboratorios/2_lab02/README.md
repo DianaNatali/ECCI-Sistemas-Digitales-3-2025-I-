@@ -69,19 +69,34 @@ Revisar la siguiente documentación: [raspberry](/laboratorios/2_lab02/raspberry
 
 ## 6.2 Acceso por SSH (Sin pantalla)
 
-1. Encuentrar la dirección IP:
+1. Encontrar la dirección IP:
 
-    * Desde la interfaz de tu router.
-
-    * Con la herramienta Angry IP Scanner o nmap.
-
-2. Acceder desde el computador con:
+    Abra una terminal en Windows (PowerShell o Símbolo del sistema) y ejecute:
 
     ```
-    ssh pi@<direccion_ip>
+    arp -a
     ```
 
-    Contraseña predeterminada: ```raspberry```.
+2. Para conectar la Raspberry Pi mediante SSH en Visual Studio Code, siga estos pasos:
+
+    1. Instalar la extensión SSH en VS Code
+
+        1. Abra Visual Studio Code en su computador.
+        2. Vaya a la pestaña **Extensiones** ```(Ctrl + Shift + X)```.
+        3. Busqye **Remote - SSH** e instalarlo.
+
+    2. Configurar la conexión SSH
+
+        1. Abra la paleta de comandos en VS Code ```(Ctrl + Shift + P)```.
+        2. Escriba ```Remote-SSH: Connect to Host...``` y seleccionelo.
+        3. En la ventana emergente, seleccione ```Add New SSH Host....```
+        4. Escriba el siguiente comando (reemplace ```<direccion_ip>``` con la IP de la Raspberry Pi):
+
+            ```
+            ssh pi@<direccion_ip>
+            ```
+
+        5. Presione ```Enter``` y seleccione un archivo de configuración (```.ssh/config``` en su usuario de Windows).
 
 ## 6.3 Configuración básica
 
