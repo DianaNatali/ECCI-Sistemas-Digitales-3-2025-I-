@@ -25,7 +25,7 @@ Esta guía está diseñada para ayudar a configurar y utilizar una **Raspberry P
 
 * Adaptador de corriente (5V, 2A recomendado).
 
-* Cable micro-USB OTG y teclado/ratón (opcional).
+* Cable micro-USB OTG y teclado/mouse (opcional).
 
 * Adaptador HDMI a mini-HDMI y pantalla (opcional).
 
