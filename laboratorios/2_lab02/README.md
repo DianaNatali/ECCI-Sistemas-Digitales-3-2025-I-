@@ -2,7 +2,7 @@
 
 ## 1. Introducción
 
-Esta guía está diseñada para ayudar a configurar y utilizar una **Raspberry Pi Zero W** y **2 W** desde cero. Aprenderás a instalar el sistema operativo, configurar la red y acceder de forma remota.
+Esta guía está diseñada para ayudar a configurar y utilizar una **Raspberry Pi Zero W** y **2 W** desde cero. Aprenderán a instalar el sistema operativo, configurar la red y acceder de forma remota.
 
 ## 2. Objetivos de aprendizaje
 
