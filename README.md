@@ -54,8 +54,8 @@ El curso se centra en la integración de dos componentes clave: un microcontrola
   </tr>
   <tr>
     <td>8-9</td>
-    <td> Introducción a SBC</td>
-    <td><a href="">lab02</a></td>
+    <td> Introducción a Raspberry Pi </td>
+    <td><a href="/laboratorios/2_lab02/README.md">lab02</a></td>
     <td><a href="">Link </a></td>
     <td>07-11 Abr/2025</td>
   </tr>
