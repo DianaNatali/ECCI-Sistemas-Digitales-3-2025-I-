@@ -1,4 +1,4 @@
-## Lab 2: Introducción a Raspberry Pi Zero W y 2 W
+## Lab02: Introducción a Raspberry Pi Zero W y 2 W
 
 ## 1. Introducción
 
