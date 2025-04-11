@@ -63,7 +63,7 @@ El curso se centra en la integración de dos componentes clave: un microcontrola
     <td>9-10</td>
     <td> Visualización de Datos en Raspberry Pi Zero W con VNC Viewer </td>
     <td><a href="/laboratorios/3_lab03/README.md">lab03</a></td>
-    <td><a href="">Link </a></td>
+    <td><a href="https://classroom.github.com/a/jwwKWDf9">Link </a></td>
     <td>07-11 Abr/2025</td>
   </tr>
 
