@@ -76,9 +76,20 @@ Los siguientes pasos se ejecutar conectando una pantalla HDMI, un mouse y un tec
     sudo apt install python3-matplotlib -y
     ```
 
-2. Acepte la tarea en el link y ejecute el código que encontrará en el respetivo repositorio.
+2. Acepte la tarea en el link y ejecute el código que encontrará en el respectivo repositorio.
 
 3. Apropíese del código del ítem anterior y agregue funcionalidades o cambia parámetros según lo requiera.
+
+#### Explicación
+
+| Sección                | Descripción                                                             |
+|------------------------|-------------------------------------------------------------------------|
+| `vcgencmd measure_temp` | Comando del sistema para leer la temperatura del CPU.                   |
+| `subprocess.check_output` | Ejecuta comandos del sistema desde Python.                              |
+| `matplotlib.pyplot`    | Biblioteca para graficar datos.                                         |
+| `plt.ion()`            | Activa modo interactivo para actualizar la gráfica sin bloquear el código. |
+| `time.sleep()`         | Controla el intervalo de lectura (cada 0.5 s).                          |
+
 
 
 ## Entregables
