@@ -250,7 +250,7 @@ La interfaz de ```Node-RED``` es una plataforma visual que permite crear aplicac
 
 2. Crear el flujo:
 
-    1. Buscar los siguientes nodos en el panel de nodos y arrastarlos a una pestalla de flujo:
+    1. Buscar los siguientes nodos en el panel de nodos y arrastarlos a una pestaña de flujo:
 
         * ```color picker```.
 
