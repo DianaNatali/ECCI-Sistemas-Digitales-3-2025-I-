@@ -70,7 +70,7 @@ El curso se centra en la integración de dos componentes clave: un microcontrola
   <tr>
     <td>10-11</td>
     <td>  Visualización de Datos en Raspberry Pi con Node-RED y Python </td>
-    <td><a href="/laboratorios/4_lab04/README.md">lab03</a></td>
+    <td><a href="/laboratorios/4_lab04/README.md">lab04</a></td>
     <td><a href="">Link </a></td>
     <td>25 Abr/2025</td>
   </tr>
