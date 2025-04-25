@@ -1,4 +1,4 @@
-# Lab04: Visualización de Datos en Raspberry Pi Zero W con Node-RED y Python
+# Lab04: Visualización de datos en Raspberry Pi con Node-RED y Python
 
 ## Objetivo de aprendizaje
 
