@@ -1,4 +1,4 @@
-# Lab03: Visualización de Datos en Raspberry Pi Zero W con VNC Viewer
+# Lab03: Visualización de Datos en Raspberry Pi con VNC Viewer
 
 ## Objetivo de aprendizaje
 
