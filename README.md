@@ -77,9 +77,17 @@ El curso se centra en la integración de dos componentes clave: un microcontrola
 
   <tr>
     <td>10-11</td>
-    <td> Proyecto 1ra. Entrega </td>
+    <td> Proyecto 1ra. entrega </td>
     <td>  </td>
     <td><a href="https://classroom.github.com/a/r8QgdMsY">Link </a></td>
+    <td>25 Abr/2025</td>
+  </tr>
+
+  <tr>
+    <td>12-13</td>
+    <td> Proyecto 2da. entrega </td>
+    <td>  </td>
+    <td><a href="https://classroom.github.com/a/cbTP7w9r">Link </a></td>
     <td>25 Abr/2025</td>
   </tr>
 
