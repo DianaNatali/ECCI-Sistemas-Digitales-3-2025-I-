@@ -90,6 +90,13 @@ El curso se centra en la integración de dos componentes clave: un microcontrola
     <td><a href="https://classroom.github.com/a/2m62jW_S">Link </a></td>
     <td>09 May/2025</td>
   </tr>
+  <tr>
+    <td>13-14</td>
+    <td> MQTT en Raspberry Pi </td>
+    <td><a href="/laboratorios/5_lab05/README.md">lab05</a></td>
+    <td><a href="https://classroom.github.com/a/2m62jW_S">Link </a></td>
+    <td>09 May/2025</td>
+  </tr>
 
 
  
