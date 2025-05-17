@@ -40,9 +40,15 @@ El broker es el servidor central que recibe todos los mensajes **MQTT**, los fil
 
    Los clientes **Mosquitto** son herramientas de línea de comandos que  permiten enviar y recibir mensajes **MQTT** para probar y usar el broker. Por ejemplo:
 
-    * ```mosquitto_pub}``` para publicar mensajes en un *topic*.
+    * ```mosquitto_pub``` para publicar mensajes en un *topic*.
 
     * ```mosquitto_sub``` para suscribirte y recibir mensajes de un *topic*.
+  
+    Para instalar mosquittlo:
+
+    ```
+    sudo apt install mosquitto mosquitto-clients -y
+    ```
 
 3. Habilitar **Mosquitto** para que inicie con el sistema:
 
