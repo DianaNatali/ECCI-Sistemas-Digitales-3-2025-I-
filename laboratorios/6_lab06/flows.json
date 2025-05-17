@@ -1,0 +1,850 @@
+[
+    {
+        "id": "6b5a6576040a5637",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "8419eaea40d95fd2",
+        "type": "function",
+        "z": "6b5a6576040a5637",
+        "name": "function 1",
+        "func": "let rgb = msg.payload.match(/\\d+/g); \n\nif (rgb && rgb.length === 3) {\n    let r = rgb[0];\n    let g = rgb[1];\n    let b = rgb[2];\n    \n    let colorData = `R: ${r}, G: ${g}, B: ${b}`;\n    \n    msg.payload = { r: r, g: g, b: b };\n    \n    return [\n        { payload: r, topic: \"r\"},         \n        { payload: g, topic: \"g\"},         \n        { payload: b, topic: \"b\" },\n        { payload: colorData }  \n    ];\n} else {\n    msg.payload = \"Color inválido\";\n    return [{ payload: msg.payload }];\n}\n",
+        "outputs": 4,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 200,
+        "wires": [
+            [],
+            [],
+            [],
+            [
+                "dee5d10260cfb163",
+                "bbdb11582c9069e8"
+            ]
+        ]
+    },
+    {
+        "id": "bbdb11582c9069e8",
+        "type": "ui_text_input",
+        "z": "6b5a6576040a5637",
+        "d": true,
+        "name": "",
+        "label": "",
+        "tooltip": "",
+        "group": "3236ee8421ccdd33",
+        "order": 3,
+        "width": 5,
+        "height": 1,
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "payload",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 440,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dee5d10260cfb163",
+        "type": "file",
+        "z": "6b5a6576040a5637",
+        "name": "",
+        "filename": "/home/rpiZeroW/color.txt",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 650,
+        "y": 360,
+        "wires": [
+            [
+                "4a6292911fc0efd2"
+            ]
+        ]
+    },
+    {
+        "id": "4d9d597c8b60179e",
+        "type": "inject",
+        "z": "6b5a6576040a5637",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 600,
+        "y": 460,
+        "wires": [
+            [
+                "4a6292911fc0efd2"
+            ]
+        ]
+    },
+    {
+        "id": "4a6292911fc0efd2",
+        "type": "exec",
+        "z": "6b5a6576040a5637",
+        "command": "python3 /home/rpiZeroW/get_color.py",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 910,
+        "y": 440,
+        "wires": [
+            [
+                "ec7eeca4951cb20c",
+                "dbc87aa4843b3545"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "ec7eeca4951cb20c",
+        "type": "debug",
+        "z": "6b5a6576040a5637",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1160,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "2dde6bfaac95af47",
+        "type": "ui_upload",
+        "z": "6b5a6576040a5637",
+        "group": "4bdebf8e24a1ac57",
+        "title": " ",
+        "accept": "",
+        "name": "",
+        "order": 2,
+        "width": 9,
+        "height": 1,
+        "chunk": "2048",
+        "transfer": "base64",
+        "x": 220,
+        "y": 560,
+        "wires": [
+            [
+                "47da5d021484975e"
+            ]
+        ]
+    },
+    {
+        "id": "47da5d021484975e",
+        "type": "function",
+        "z": "6b5a6576040a5637",
+        "name": "Guardar base64 imagen",
+        "func": "let file = msg.payload;\nlet mime = msg.file && msg.file.mimetype ? msg.file.mimetype : \"image/jpeg\";\n\nlet base64str = `data:${mime};base64,${file.toString('base64')}`;\n\nflow.set(\"imagen_base64\", base64str);\nreturn { payload: base64str };\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 560,
+        "wires": [
+            [
+                "e08a1664cabb09e8"
+            ]
+        ]
+    },
+    {
+        "id": "e08a1664cabb09e8",
+        "type": "ui_template",
+        "z": "6b5a6576040a5637",
+        "group": "4bdebf8e24a1ac57",
+        "name": "Mostrar imagen y obtener color",
+        "order": 5,
+        "width": 9,
+        "height": 9,
+        "format": "<div style=\"width: 100%; overflow: auto; max-height: 80vh;\">\n    <canvas id=\"canvas\" style=\"display: block; width: 100%; height: auto;\"></canvas>\n</div>\n<p id=\"colorInfo\" style=\"color: white; font-weight: bold;\"></p>\n\n<script>\n    (function(scope) {\n        scope.$watch('msg.payload', function(payload) {\n            // Verificar si el payload es una cadena base64 con imagen\n            if (typeof payload !== 'string' || !payload.startsWith(\"data:image\")) return;\n\n            const canvas = document.getElementById(\"canvas\");\n            const ctx = canvas.getContext(\"2d\");\n            const img = new Image();\n\n            img.onload = function () {\n                // Calcular la proporción de la imagen\n                const aspectRatio = img.width / img.height;\n\n                // Tamaño máximo del canvas (ajustable)\n                const maxWidth = 1000;  // Máximo ancho para el canvas\n                const maxHeight = 800;  // Máxima altura para el canvas\n\n                // Ajustar tamaño del canvas\n                let canvasWidth = img.width;\n                let canvasHeight = img.height;\n\n                // Si la imagen es más ancha que el máximo permitido\n                if (img.width > maxWidth) {\n                    canvasWidth = maxWidth;\n                    canvasHeight = maxWidth / aspectRatio;\n                }\n\n                // Si la imagen es más alta que el máximo permitido\n                if (canvasHeight > maxHeight) {\n                    canvasHeight = maxHeight;\n                    canvasWidth = maxHeight * aspectRatio;\n                }\n\n                // Establecer el tamaño final del canvas\n                canvas.width = canvasWidth;\n                canvas.height = canvasHeight;\n\n                // Dibujar la imagen en el canvas\n                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);\n\n                // Manejar el clic para obtener el color\n                canvas.onclick = function(evt) {\n                    const rect = canvas.getBoundingClientRect();\n                    const scaleX = canvas.width / rect.width;\n                    const scaleY = canvas.height / rect.height;\n\n                    const x = Math.floor((evt.clientX - rect.left) * scaleX);\n                    const y = Math.floor((evt.clientY - rect.top) * scaleY);\n\n                    const pixel = ctx.getImageData(x, y, 1, 1).data;\n                    const rgb = {\n                        r: pixel[0],\n                        g: pixel[1],\n                        b: pixel[2]\n                    };\n\n                    document.getElementById(\"colorInfo\").innerText = `RGB(${rgb.r}, ${rgb.g}, ${rgb.b})`;\n                    scope.send({ payload: { x, y, color: rgb } });\n                };\n            };\n\n            img.src = payload; // Establecer la fuente de la imagen (base64)\n        });\n    })(scope);\n</script>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 690,
+        "y": 560,
+        "wires": [
+            [
+                "72901bd19434168d",
+                "29f7bd914e5f68fc"
+            ]
+        ]
+    },
+    {
+        "id": "72901bd19434168d",
+        "type": "debug",
+        "z": "6b5a6576040a5637",
+        "name": "Color seleccionado",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 950,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "29f7bd914e5f68fc",
+        "type": "function",
+        "z": "6b5a6576040a5637",
+        "name": "function 3",
+        "func": "let r = msg.payload.color.r;\nlet g = msg.payload.color.g;\nlet b = msg.payload.color.b;\n\nif (\n    Number.isInteger(r) && r >= 0 && r <= 255 &&\n    Number.isInteger(g) && g >= 0 && g <= 255 &&\n    Number.isInteger(b) && b >= 0 && b <= 255\n) {\n    let hex = `#${((1 << 24) | (r << 16) | (g << 8) | b).toString(16).slice(1).toUpperCase()}`;\n    msg.payload = hex;\n} else {\n    msg.payload = \"Valores fuera de rango (0-255)\";\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 660,
+        "wires": [
+            [
+                "543ce9c3fce467cb",
+                "dad10cf62400f5f1"
+            ]
+        ]
+    },
+    {
+        "id": "543ce9c3fce467cb",
+        "type": "debug",
+        "z": "6b5a6576040a5637",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1100,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "8c8428be3f05df87",
+        "type": "ui_button",
+        "z": "6b5a6576040a5637",
+        "name": "",
+        "group": "3236ee8421ccdd33",
+        "order": 11,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Activar",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 330,
+        "y": 440,
+        "wires": [
+            [
+                "4a6292911fc0efd2"
+            ]
+        ]
+    },
+    {
+        "id": "dbc87aa4843b3545",
+        "type": "ui_text",
+        "z": "6b5a6576040a5637",
+        "group": "3236ee8421ccdd33",
+        "order": 12,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Color",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 1150,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "179b617327846e20",
+        "type": "mqtt in",
+        "z": "6b5a6576040a5637",
+        "name": "",
+        "topic": "pico/sensor/color",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "355727a2fb6338a8",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 240,
+        "y": 780,
+        "wires": [
+            [
+                "67d5cb7dbe25a4e2",
+                "0369f1266569dc06",
+                "6a553a52b4b5c107"
+            ]
+        ]
+    },
+    {
+        "id": "bbe933845b4a40c8",
+        "type": "mqtt out",
+        "z": "6b5a6576040a5637",
+        "name": "",
+        "topic": "pico/input/color",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "355727a2fb6338a8",
+        "x": 440,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "67d5cb7dbe25a4e2",
+        "type": "debug",
+        "z": "6b5a6576040a5637",
+        "name": "debug 6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "dad10cf62400f5f1",
+        "type": "ui_colour_picker",
+        "z": "6b5a6576040a5637",
+        "name": "",
+        "label": "",
+        "group": "3236ee8421ccdd33",
+        "format": "rgb",
+        "outformat": "string",
+        "showSwatch": true,
+        "showPicker": true,
+        "showValue": true,
+        "showHue": false,
+        "showAlpha": false,
+        "showLightness": true,
+        "square": "false",
+        "dynOutput": "false",
+        "order": 1,
+        "width": 5,
+        "height": 5,
+        "passthru": true,
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "x": 230,
+        "y": 120,
+        "wires": [
+            [
+                "8419eaea40d95fd2",
+                "21137dc601ae76eb"
+            ]
+        ]
+    },
+    {
+        "id": "21137dc601ae76eb",
+        "type": "debug",
+        "z": "6b5a6576040a5637",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 420,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "96d42349c1a7ae8a",
+        "type": "ui_button",
+        "z": "6b5a6576040a5637",
+        "name": "",
+        "group": "c10419f28e3077dc",
+        "order": 1,
+        "width": 3,
+        "height": 1,
+        "passthru": false,
+        "label": "Iniciar",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "Iniciar",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 230,
+        "y": 860,
+        "wires": [
+            [
+                "bbe933845b4a40c8"
+            ]
+        ]
+    },
+    {
+        "id": "0369f1266569dc06",
+        "type": "ui_text",
+        "z": "6b5a6576040a5637",
+        "group": "c10419f28e3077dc",
+        "order": 3,
+        "width": 6,
+        "height": 1,
+        "name": "",
+        "label": "Color sensado:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": true,
+        "font": "Tahoma,Geneva,sans-serif",
+        "fontSize": 16,
+        "color": "#ffffff",
+        "x": 500,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "8109ef01b3725277",
+        "type": "ui_button",
+        "z": "6b5a6576040a5637",
+        "name": "",
+        "group": "c10419f28e3077dc",
+        "order": 1,
+        "width": 3,
+        "height": 1,
+        "passthru": false,
+        "label": "Detener",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "Detener",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 240,
+        "y": 920,
+        "wires": [
+            [
+                "bbe933845b4a40c8"
+            ]
+        ]
+    },
+    {
+        "id": "6a553a52b4b5c107",
+        "type": "function",
+        "z": "6b5a6576040a5637",
+        "name": "function 4",
+        "func": "let texto = msg.payload;\n\nlet match = texto.match(/R:(\\d+)\\s+G:(\\d+)\\s+B:(\\d+)\\s+C:(\\d+)/);\n\nif (match) {\n    let r = parseInt(match[1]);\n    let g = parseInt(match[2]);\n    let b = parseInt(match[3]);\n    let c = parseInt(match[4]);\n\n    msg.payload = {\n        r: r,\n        g: g,\n        b: b,\n        c: c,\n        rgb: `rgb(${r},${g},${b})` \n    };\n    \n    return msg;\n} else {\n    node.warn(\"No se pudo extraer R, G, B, C del mensaje.\");\n    return null;\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 140,
+        "y": 720,
+        "wires": [
+            [
+                "dad10cf62400f5f1"
+            ]
+        ]
+    },
+    {
+        "id": "2f66c80fb6d7fca8",
+        "type": "ui_spacer",
+        "z": "6b5a6576040a5637",
+        "name": "spacer",
+        "group": "3236ee8421ccdd33",
+        "order": 2,
+        "width": 6,
+        "height": 1
+    },
+    {
+        "id": "b07ee766e91ccac7",
+        "type": "ui_spacer",
+        "z": "6b5a6576040a5637",
+        "name": "spacer",
+        "group": "3236ee8421ccdd33",
+        "order": 4,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "e123dfa00bb9046f",
+        "type": "ui_spacer",
+        "z": "6b5a6576040a5637",
+        "name": "spacer",
+        "group": "3236ee8421ccdd33",
+        "order": 6,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "8b11a57691113880",
+        "type": "ui_spacer",
+        "z": "6b5a6576040a5637",
+        "name": "spacer",
+        "group": "3236ee8421ccdd33",
+        "order": 8,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "8fc0b699921c8d78",
+        "type": "ui_spacer",
+        "z": "6b5a6576040a5637",
+        "name": "spacer",
+        "group": "3236ee8421ccdd33",
+        "order": 10,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "1b7c5a288c2edaf1",
+        "type": "ui_spacer",
+        "z": "6b5a6576040a5637",
+        "name": "spacer",
+        "group": "4bdebf8e24a1ac57",
+        "order": 1,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "0fa759d1be79633e",
+        "type": "ui_spacer",
+        "z": "6b5a6576040a5637",
+        "name": "spacer",
+        "group": "4bdebf8e24a1ac57",
+        "order": 3,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "f5f2d177578c5b01",
+        "type": "ui_spacer",
+        "z": "6b5a6576040a5637",
+        "name": "spacer",
+        "group": "4bdebf8e24a1ac57",
+        "order": 4,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "d4215810c15e8d53",
+        "type": "ui_spacer",
+        "z": "6b5a6576040a5637",
+        "name": "spacer",
+        "group": "4bdebf8e24a1ac57",
+        "order": 6,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "027f8cfda2e4af45",
+        "type": "ui_spacer",
+        "z": "6b5a6576040a5637",
+        "name": "spacer",
+        "group": "4bdebf8e24a1ac57",
+        "order": 7,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "88af31fa032d984b",
+        "type": "ui_spacer",
+        "z": "6b5a6576040a5637",
+        "name": "spacer",
+        "group": "4bdebf8e24a1ac57",
+        "order": 8,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "eaf1bdd1abf2cd4c",
+        "type": "ui_spacer",
+        "z": "6b5a6576040a5637",
+        "name": "spacer",
+        "group": "4bdebf8e24a1ac57",
+        "order": 9,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "2d9e6ba78ef5711f",
+        "type": "ui_spacer",
+        "z": "6b5a6576040a5637",
+        "name": "spacer",
+        "group": "4bdebf8e24a1ac57",
+        "order": 10,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "b97f8edc355b432c",
+        "type": "ui_spacer",
+        "z": "6b5a6576040a5637",
+        "name": "spacer",
+        "group": "4bdebf8e24a1ac57",
+        "order": 11,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "e273423d67ca3de8",
+        "type": "ui_spacer",
+        "z": "6b5a6576040a5637",
+        "name": "spacer",
+        "group": "4bdebf8e24a1ac57",
+        "order": 12,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "a2d19b9af03c0db0",
+        "type": "ui_spacer",
+        "z": "6b5a6576040a5637",
+        "name": "spacer",
+        "group": "4bdebf8e24a1ac57",
+        "order": 13,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "48d815fd922deab1",
+        "type": "ui_spacer",
+        "z": "6b5a6576040a5637",
+        "name": "spacer",
+        "group": "4bdebf8e24a1ac57",
+        "order": 14,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "2c924b2b30b875a3",
+        "type": "ui_spacer",
+        "z": "6b5a6576040a5637",
+        "name": "spacer",
+        "group": "4bdebf8e24a1ac57",
+        "order": 15,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "8ca2a5a08bade879",
+        "type": "ui_spacer",
+        "z": "6b5a6576040a5637",
+        "name": "spacer",
+        "group": "4bdebf8e24a1ac57",
+        "order": 16,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "34e08dc4b93230f9",
+        "type": "ui_spacer",
+        "z": "6b5a6576040a5637",
+        "name": "spacer",
+        "group": "4bdebf8e24a1ac57",
+        "order": 17,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "81e860fd5c71da99",
+        "type": "ui_spacer",
+        "z": "6b5a6576040a5637",
+        "name": "spacer",
+        "group": "4bdebf8e24a1ac57",
+        "order": 18,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "1f786b0ae5ab5531",
+        "type": "ui_spacer",
+        "z": "6b5a6576040a5637",
+        "name": "spacer",
+        "group": "4bdebf8e24a1ac57",
+        "order": 19,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "62cbe00aa4159010",
+        "type": "ui_spacer",
+        "z": "6b5a6576040a5637",
+        "name": "spacer",
+        "group": "4bdebf8e24a1ac57",
+        "order": 20,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "b0c934ae6494f986",
+        "type": "ui_spacer",
+        "z": "6b5a6576040a5637",
+        "name": "spacer",
+        "group": "4bdebf8e24a1ac57",
+        "order": 21,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "73d0acd6fe780b6b",
+        "type": "ui_spacer",
+        "z": "6b5a6576040a5637",
+        "name": "spacer",
+        "group": "4bdebf8e24a1ac57",
+        "order": 22,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "83fb72f898652c1c",
+        "type": "ui_spacer",
+        "z": "6b5a6576040a5637",
+        "name": "spacer",
+        "group": "c10419f28e3077dc",
+        "order": 2,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "3236ee8421ccdd33",
+        "type": "ui_group",
+        "name": "Selector de color",
+        "tab": "953203776409de9e",
+        "order": 1,
+        "disp": true,
+        "width": "11",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "4bdebf8e24a1ac57",
+        "type": "ui_group",
+        "name": "Ingrese imagen",
+        "tab": "953203776409de9e",
+        "order": 2,
+        "disp": true,
+        "width": "11",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "355727a2fb6338a8",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "localhost",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "c10419f28e3077dc",
+        "type": "ui_group",
+        "name": "Sensar color",
+        "tab": "953203776409de9e",
+        "order": 3,
+        "disp": true,
+        "width": "10",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "953203776409de9e",
+        "type": "ui_tab",
+        "name": "Mezclador de pintura",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
